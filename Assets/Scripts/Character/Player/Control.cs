@@ -5,25 +5,29 @@ namespace Character.Player
 {
 	public class Control : Movement
 	{
-		[SerializeField]
-		private float speed = 3;
-		[SerializeField]
-		private float jumpForce = 3;
 		[SerializeField] 
 		private Vector2 cameraBounds;
 		[SerializeField] 
-		private Gun gun = null;
+		private Gun.Gun gun = null;
 		[SerializeField]
 		private Camera playerCamera;
 
 		public LayerMask layerMask;
+		public float MouseSensivityX = 5;
+		public float MouseSensivityY = 5;
 		
 		private Vector3 rotationX = Vector3.zero;
 		private Vector3 rotationY = Vector3.zero;
+		private Vector3 direction;
 		private RaycastHit hit;
 		private float cameraHeight;
 		private float cameraFreedom = 2f;
 		private float factorA;
+		private int jumpCount;
+		private bool onGround;
+		private bool haveDoubleJump;
+		private bool haveSprint;
+		private float sprintPower = 2.5f;
 
 		private void Start()
 		{
@@ -35,9 +39,42 @@ namespace Character.Player
 		{
 			HandleMouse();
 
+			HandleMouseClick();
+
 			HandleKeyboard();
 
 			AimGun();
+		}
+
+		private void OnCollisionEnter(Collision other)
+		{
+			if (other.gameObject.layer == LayerMask.NameToLayer("Ground") ||
+			    other.gameObject.layer == LayerMask.NameToLayer("Obstacles"))
+			{
+				onGround = true;
+				ResetJump();
+			}
+		}
+
+		private void ResetJump()
+		{
+			jumpCount = haveDoubleJump ? 2 : 1;
+		}
+
+		float time = 0;
+		private float reloadTime = 0.5f;
+		private void HandleMouseClick()
+		{
+			time -= Time.deltaTime;
+			if (Input.GetMouseButton(0))
+			{
+				//gun.Fire();
+				if (time < 0)
+				{
+					gun.Fire();
+					time = reloadTime;
+				}
+			}
 		}
 
 		private void AimGun()
@@ -50,19 +87,24 @@ namespace Character.Player
 
 		private void HandleKeyboard()
 		{
-			Move(Input.GetAxis("Vertical") * speed * transform.forward +
-			     Input.GetAxis("Horizontal") * speed * transform.right);
-
-			if (Input.GetKeyDown(KeyCode.Space))
+			direction = Input.GetAxis("Vertical") * transform.forward +
+			            Input.GetAxis("Horizontal") * transform.right;
+			if (haveSprint && Input.GetKey(KeyCode.LeftShift))
 			{
-				Jump(jumpForce);
+				direction *= sprintPower;
+			}
+			Move(direction);
+
+			if (Input.GetKeyDown(KeyCode.Space) && jumpCount-- > 0)
+			{
+				Jump();
 			}
 		}
 
 		private void HandleMouse()
 		{
 			rotationX = transform.rotation.eulerAngles;
-			rotationX.y += Input.GetAxis("Mouse X");
+			rotationX.y += Input.GetAxis("Mouse X") * Time.deltaTime * MouseSensivityX;
 			gameObject.transform.rotation = Quaternion.Euler(rotationX);
 			
 //			rotationY = gun.transform.rotation.eulerAngles;
@@ -72,7 +114,7 @@ namespace Character.Player
 //			gun.transform.rotation = Quaternion.Euler(rotationY);
 			
 			rotationY = playerCamera.transform.rotation.eulerAngles;
-			rotationY.x += Input.GetAxis("Mouse Y");
+			rotationY.x -= Input.GetAxis("Mouse Y") * Time.deltaTime * MouseSensivityY;
 			rotationY.x = (rotationY.x > 180) ? rotationY.x - 360 : rotationY.x;
 			rotationY.x = Mathf.Clamp(rotationY.x, cameraBounds.x, cameraBounds.y);
 			playerCamera.transform.rotation = Quaternion.Euler(rotationY);

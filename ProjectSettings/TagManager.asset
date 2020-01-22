@@ -20,10 +20,10 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Zombie
+  - Gun
+  - Bullet
+  - PlatformBorder
   - Obstacles
   - Ground
   - Border

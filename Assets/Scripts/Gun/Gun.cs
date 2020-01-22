@@ -1,9 +1,37 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class Gun : MonoBehaviour
+namespace Gun
 {
-	public void AimAtPoint(Vector3 point)
+	public class Gun : MonoBehaviour
 	{
-		transform.LookAt(point);
+		[SerializeField] 
+		private Bullet bulletPrefab;
+		[SerializeField]
+		private Transform muzzle;
+		[SerializeField]
+		private int maxBullet = 200;
+		[SerializeField]
+		private AudioSource audioSource;
+		
+		private readonly Queue<Bullet> bulletFired = new Queue<Bullet>();
+		
+		public void AimAtPoint(Vector3 point)
+		{
+			transform.LookAt(point);
+		}
+
+		public void Fire()
+		{
+			audioSource.pitch = Random.Range(0.85f, 1.15f);
+			audioSource.Play();
+			var bullet = Instantiate(bulletPrefab, muzzle.position, muzzle.rotation);
+			bullet.Fire(muzzle.forward);
+			bulletFired.Enqueue(bullet);
+			if (bulletFired.Count > maxBullet)
+			{
+				Destroy(bulletFired.Dequeue().gameObject);
+			}
+		}
 	}
 }

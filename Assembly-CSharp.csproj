@@ -56,10 +56,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Character\Al\Zombie.cs" />
      <Compile Include="Assets\Scripts\Character\Movement.cs" />
      <Compile Include="Assets\Scripts\Character\Player\Control.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Gun\Bullet.cs" />
      <Compile Include="Assets\Scripts\Gun\Gun.cs" />
+     <Compile Include="Assets\Scripts\Platform\Platform.cs" />
+     <Compile Include="Assets\Scripts\PowerUp\DoubleJump.cs" />
+     <Compile Include="Assets\Scripts\PowerUp\PowerUp.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Programowanie/FPPTest/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
