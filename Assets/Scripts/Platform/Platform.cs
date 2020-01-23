@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Character.Al;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Type = Upgrades.Type;
 
 namespace Platform
 {
@@ -16,11 +17,17 @@ namespace Platform
 		[SerializeField] 
 		private Vector2 size;
 
+		public Transform powerUpSpawnPoint;
+		
 		//settings
 		private int baseZombieCount = 3;
 
 		private int randomZombieMaxCount = 4;
+		private Type powerUpType = Type.None;
 		private readonly List<Zombie> zombies = new List<Zombie>();
+
+		public bool HavePowerUp => powerUpType != Type.None;
+		
 		void Start()
 		{
 			SpawnZombie(difficultyLevel);
@@ -37,6 +44,8 @@ namespace Platform
 						myPosition.z + Random.Range(-size.y, size.y)), Quaternion.identity));
 			}
 		}
+
+		#region Collision
 
 		private void OnCollisionEnter(Collision other)
 		{
@@ -58,6 +67,13 @@ namespace Platform
 					zombie.LoseFocus();
 				}
 			}
+		}
+		
+		#endregion
+
+		public void PowerUp(Type type)
+		{
+			powerUpType = type;
 		}
 	}
 }

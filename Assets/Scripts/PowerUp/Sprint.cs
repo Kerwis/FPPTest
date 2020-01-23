@@ -1,4 +1,4 @@
-﻿namespace PowerUp
+﻿namespace Upgrades
 {
     public class Sprint : PowerUp
     {

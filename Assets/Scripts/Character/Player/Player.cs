@@ -1,4 +1,4 @@
-﻿using PowerUp;
+﻿using Upgrades;
 using UnityEngine;
 
 namespace Character.Player

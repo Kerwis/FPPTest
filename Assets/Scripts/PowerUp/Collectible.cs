@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PowerUp
+namespace Upgrades
 {
     [RequireComponent(typeof(Collider))]
     public abstract class Collectible : MonoBehaviour
