@@ -25,18 +25,25 @@ namespace Upgrades
 			unregisterAction.Invoke(this);
 		}
 
-		protected virtual Type PowerType => Type.None;
+		public virtual Type PowerType => Type.None;
 		private SaveManager.UnregisterAction unregisterAction;
 		protected virtual string SaveName => "PowerUp" + PowerType;
-		public Tuple<string, string> Register(SaveManager.UnregisterAction unregister, SaveManager.UpdateAction update)
+		public string Register(SaveManager.UnregisterAction unregister, SaveManager.UpdateAction update)
 		{
 			unregisterAction = unregister;
-			return new Tuple<string, string>(SaveName, PowerType.ToString());
+			return SaveName;
 		}
 
 		public string GetSaveName()
 		{
 			return SaveName;
+		}
+
+		public void SetUp(Transform powerUpSpawnPoint)
+		{
+			 transform.parent = powerUpSpawnPoint;
+			 transform.position = powerUpSpawnPoint.position;
+			 transform.rotation = powerUpSpawnPoint.rotation;
 		}
 	}
 }

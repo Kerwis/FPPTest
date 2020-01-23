@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Gun\Bullet.cs" />
      <Compile Include="Assets\Scripts\Gun\Gun.cs" />
      <Compile Include="Assets\Scripts\Interface\ISaveable.cs" />
+     <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\Platform\Platform.cs" />
      <Compile Include="Assets\Scripts\PowerUp\Collectible.cs" />
      <Compile Include="Assets\Scripts\PowerUp\DoubleJump.cs" />
