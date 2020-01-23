@@ -8,7 +8,7 @@ namespace Character.Player
 		[SerializeField] 
 		private Vector2 cameraBounds;
 		[SerializeField] 
-		private Gun.Gun gun = null;
+		private Gun.Gun gun;
 		[SerializeField]
 		private Camera playerCamera;
 
@@ -25,8 +25,8 @@ namespace Character.Player
 		private float factorA;
 		private int jumpCount;
 		private bool onGround;
-		private bool haveDoubleJump;
-		private bool haveSprint;
+		protected bool HaveDoubleJump;
+		protected bool HaveSprint;
 		private float sprintPower = 2.5f;
 
 		private void Start()
@@ -58,7 +58,7 @@ namespace Character.Player
 
 		private void ResetJump()
 		{
-			jumpCount = haveDoubleJump ? 2 : 1;
+			jumpCount = HaveDoubleJump ? 2 : 1;
 		}
 
 		float time = 0;
@@ -66,7 +66,7 @@ namespace Character.Player
 		private void HandleMouseClick()
 		{
 			time -= Time.deltaTime;
-			if (Input.GetMouseButton(0))
+			if (Input.GetAxis("Fire1") > 0)
 			{
 				//gun.Fire();
 				if (time < 0)
@@ -89,13 +89,13 @@ namespace Character.Player
 		{
 			direction = Input.GetAxis("Vertical") * transform.forward +
 			            Input.GetAxis("Horizontal") * transform.right;
-			if (haveSprint && Input.GetKey(KeyCode.LeftShift))
+			if (HaveSprint && Input.GetAxis("Fire3") > 0)
 			{
 				direction *= sprintPower;
 			}
 			Move(direction);
 
-			if (Input.GetKeyDown(KeyCode.Space) && jumpCount-- > 0)
+			if (Input.GetAxis("Jump") > 0 && jumpCount-- > 0)
 			{
 				Jump();
 			}
