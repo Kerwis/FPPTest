@@ -1,5 +1,6 @@
 ﻿using System;
 using Character.Player;
+using Core;
 using Interface;
 using UnityEngine;
 
@@ -19,19 +20,23 @@ namespace Upgrades
 		public override void Collect(Collision other)
 		{
 			var player = other.gameObject.GetComponent<Player>();
-			player.CollectPowerUp(Type);
+			player.CollectPowerUp(PowerType);
 			base.Collect(other);
+			unregisterAction.Invoke(this);
 		}
 
-		public virtual Type Type { get; }
-		public Tuple<string, string> Register()
+		protected virtual Type PowerType => Type.None;
+		private SaveManager.UnregisterAction unregisterAction;
+		protected virtual string SaveName => "PowerUp" + PowerType;
+		public Tuple<string, string> Register(SaveManager.UnregisterAction unregister, SaveManager.UpdateAction update)
 		{
-			return new Tuple<string, string>("PowerUp", Type.ToString());
+			unregisterAction = unregister;
+			return new Tuple<string, string>(SaveName, PowerType.ToString());
 		}
 
-		public void Unregister()
+		public string GetSaveName()
 		{
-			throw new NotImplementedException();
+			return SaveName;
 		}
 	}
 }

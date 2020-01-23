@@ -60,7 +60,8 @@
      <Compile Include="Assets\Scripts\Character\Movement.cs" />
      <Compile Include="Assets\Scripts\Character\Player\Control.cs" />
      <Compile Include="Assets\Scripts\Character\Player\Player.cs" />
-     <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Core\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Core\SaveManager.cs" />
      <Compile Include="Assets\Scripts\Gun\Bullet.cs" />
      <Compile Include="Assets\Scripts\Gun\Gun.cs" />
      <Compile Include="Assets\Scripts\Interface\ISaveable.cs" />

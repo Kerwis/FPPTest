@@ -2,7 +2,7 @@
 {
 	public class DoubleJump : PowerUp
 	{
-		public override Type Type => Type.DoubleJump;
+		protected override Type PowerType => Type.DoubleJump;
 	}
 	
 	//TODO add some nice graphic effect!

@@ -2,7 +2,7 @@
 {
     public class Sprint : PowerUp
     {
-        public override Type Type => Type.Sprint;
+        protected override Type PowerType => Type.Sprint;
     }
     //TODO add some nice graphic effect!
 }
