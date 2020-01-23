@@ -1,6 +1,4 @@
-﻿using Interface;
-
-namespace PowerUp
+﻿namespace PowerUp
 {
 	public class DoubleJump : PowerUp
 	{
