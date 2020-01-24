@@ -65,12 +65,13 @@
      <Compile Include="Assets\Scripts\Gun\Bullet.cs" />
      <Compile Include="Assets\Scripts\Gun\Gun.cs" />
      <Compile Include="Assets\Scripts\Interface\ISaveable.cs" />
-     <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\Platform\Platform.cs" />
      <Compile Include="Assets\Scripts\PowerUp\Collectible.cs" />
      <Compile Include="Assets\Scripts\PowerUp\DoubleJump.cs" />
      <Compile Include="Assets\Scripts\PowerUp\PowerUp.cs" />
      <Compile Include="Assets\Scripts\PowerUp\Sprint.cs" />
+     <Compile Include="Assets\Scripts\UI\ExitPopup.cs" />
+     <Compile Include="Assets\Scripts\UI\Menu.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>D:/Programowanie/FPPTest/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>

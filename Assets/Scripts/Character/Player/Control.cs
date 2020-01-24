@@ -95,12 +95,10 @@ namespace Character.Player
 			}
 			Move(direction);
 
-			Debug.Log("jump count " + jumpCount);
 			if (Input.GetAxis("Jump") > 0)
 			{
 				if (jumpCount > 0 && !blockJump)
 				{
-					Debug.Log("Jump");
 					Jump();
 					blockJump = true;
 					jumpCount--;

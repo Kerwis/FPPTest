@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UI;
 using UnityEngine;
 using Upgrades;
 using Random = UnityEngine.Random;
-using Type = Upgrades.Type;
 
 namespace Core
 {
@@ -12,8 +11,9 @@ namespace Core
         public static bool isResume;
         public List<Platform.Platform> lowPlatforms = new List<Platform.Platform>();
         public List<Platform.Platform> highPlatforms = new List<Platform.Platform>();
-        [SerializeField] private Upgrades.PowerUp dobuleJumpPrefab;
-        [SerializeField] private Upgrades.PowerUp sprintPrefab;
+        [SerializeField] private PowerUp dobuleJumpPrefab;
+        [SerializeField] private PowerUp sprintPrefab;
+        [SerializeField] private ExitPopup exitPopup;
         private SaveManager saveManager = new SaveManager();
         private string nickname;
         private readonly string lastGameNickSaveName = "lastGameNick";
@@ -67,7 +67,16 @@ namespace Core
 
         private void Update()
         {
-        
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                ShowExitPopup();
+            }
+        }
+
+        private void ShowExitPopup()
+        {
+            exitPopup.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
         }
 
         private void OnDestroy()
