@@ -119,7 +119,8 @@ GameObject:
   - component: {fileID: 4042408049858142892}
   - component: {fileID: 6821615586547845023}
   - component: {fileID: 3655735157802151736}
-  m_Layer: 0
+  - component: {fileID: 1768940483688545996}
+  m_Layer: 20
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +187,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &1768940483688545996
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5496463526960214866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9010896479209577165
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,8 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f128bfcea6be9c4bac4829b2a9f4c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficultyLevel: 3
   zombiePrefab: {fileID: 2232600181605796944, guid: 3e2156eefd71b0249ab4bb28ba8a222a,
     type: 3}
-  size: {x: 10, y: 10}
+  size: {x: 9, y: 9}
   powerUpSpawnPoint: {fileID: 88060981655933731}

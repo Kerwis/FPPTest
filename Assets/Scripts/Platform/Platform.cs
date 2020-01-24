@@ -9,8 +9,6 @@ namespace Platform
 {
 	public class Platform : MonoBehaviour
 	{
-		public int difficultyLevel = 0;
-
 		[SerializeField] 
 		private Zombie zombiePrefab;
 
@@ -27,22 +25,14 @@ namespace Platform
 		private readonly List<Zombie> zombies = new List<Zombie>();
 
 		public bool HavePowerUp => powerUpType != Type.None;
-		
-		void Start()
-		{
-			SpawnZombie(difficultyLevel);
-		}
 
-		private void SpawnZombie(int difficulty)
+
+		private void SpawnZombie()
 		{
-			int zombieCount = baseZombieCount * difficulty + Random.Range(0, randomZombieMaxCount) * difficulty;
-			Vector3 myPosition = transform.position; 
-			for (int i = 0; i < zombieCount; i++)
-			{
-				zombies.Add(Instantiate(zombiePrefab,
-					new Vector3(myPosition.x + Random.Range(-size.x, size.x), myPosition.y + 1,
-						myPosition.z + Random.Range(-size.y, size.y)), Quaternion.identity));
-			}
+			Vector3 myPosition = transform.position;
+			zombies.Add(Instantiate(zombiePrefab,
+				new Vector3(myPosition.x + Random.Range(-size.x, size.x), myPosition.y + 1,
+					myPosition.z + Random.Range(-size.y, size.y)), Quaternion.identity));
 		}
 
 		#region Collision
@@ -51,6 +41,11 @@ namespace Platform
 		{
 			if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
 			{
+				if (zombies.Count < 5)
+				{
+					SpawnZombie();
+				}
+
 				foreach (var zombie in zombies)
 				{
 					zombie.Attack(other.gameObject.transform);

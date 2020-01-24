@@ -24,6 +24,7 @@ namespace Character.Player
 		private float factorA;
 		private int jumpCount;
 		private bool onGround;
+		private bool blockJump;
 		protected bool HaveDoubleJump;
 		protected bool HaveSprint;
 		private float sprintPower = 2.5f;
@@ -94,9 +95,20 @@ namespace Character.Player
 			}
 			Move(direction);
 
-			if (Input.GetAxis("Jump") > 0 && jumpCount-- > 0)
+			Debug.Log("jump count " + jumpCount);
+			if (Input.GetAxis("Jump") > 0)
 			{
-				Jump();
+				if (jumpCount > 0 && !blockJump)
+				{
+					Debug.Log("Jump");
+					Jump();
+					blockJump = true;
+					jumpCount--;
+				}
+			}
+			else
+			{
+				blockJump = false;
 			}
 		}
 

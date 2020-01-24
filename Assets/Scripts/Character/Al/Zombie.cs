@@ -13,15 +13,27 @@ namespace Character.Al
         void Start()
         {
             myTransform = transform;
+            myTransform.rotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
         }
 
         // Update is called once per frame
         void Update()
         {
-            if (!dead && player != null)
+            if(dead)
+                return;
+            if (player != null)
             {
                 MoveToPlayer(player);
             }
+            else
+            {
+                Walk();
+            }
+        }
+
+        private void Walk()
+        {
+            Move(myTransform.forward * 0.3f);
         }
 
         private void MoveToPlayer(Transform player)
@@ -40,6 +52,17 @@ namespace Character.Al
             {
                 Hit(collision.relativeVelocity * 10);
             }
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("PlatformBorder"))
+            {
+                var test = collision.GetContact(0).normal;
+                ChangeDirection(Vector3.Reflect(myTransform.forward, collision.GetContact(0).normal));
+            }
+        }
+
+        private void ChangeDirection(Vector3 reflect)
+        {
+            myTransform.LookAt(myTransform.position + reflect);
         }
 
         public void Hit(Vector3 direction)
